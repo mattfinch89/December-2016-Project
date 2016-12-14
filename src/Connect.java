@@ -9,27 +9,35 @@ public class Connect implements Grid {
 	
 	public Connect()
 	{
-		for (int i = 0; i <= 5; i++)
+		for (int i = 0; i <= 6; i++)
 		{
-			for(int j = 0; j <= i; j++)
+			for(int j = 0; j <= 5; j++)
 			column[i][j] = 0;
 		}
 	}
 	
 	public void onPlacedX(int column){ //coordinates of move
-		
-		for (int i = 0; i <= 5; i++)
+		boolean placeHolder = true;
+		for (int i = 0; i <= 5 && placeHolder; i++)
 		{
 			if (this.column[column][i] == 0)
+			{
 				this.column[column][i] = 1;
+				placeHolder = false; 
+			}
 		}
 		rounds++;
 	}
 	public void onPlacedO(int column){ //coordinates of move
-		for (int i = 0; i <= 5; i++)
+		boolean placeHolder = true;
+		for (int i = 0; i <= 5 && placeHolder; i++)
 		{
 			if (this.column[column][i] == 0)
+			{
 				this.column[column][i] = 2;
+				placeHolder = false;
+			}
+				
 		}
 		rounds++;
 	}
