@@ -1,41 +1,44 @@
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Connect implements Grid {
+public class Connect implements Grid, MouseListener {
 	
 	int rounds = 0;
 	int width;
 	int height;
 	int [][] column = new int[6][5];
+	boolean [] tile = new boolean [6];
 
 	
 	public Connect()
 	{
-		for (int i = 0; i <= 6; i++)
+		for (int i = 0; i < 6; i++)
 		{
-			for(int j = 0; j <= 5; j++)
+			for(int j = 0; j < 5; j++)
 			column[i][j] = 0;
 		}
 	}
 	
 	public void onPlacedX(int column){ //coordinates of move
-		boolean placeHolder = true;
-		for (int i = 0; i <= 5 && placeHolder; i++)
+		boolean emptySpace = true;
+		for (int i = 0; i <= 5 && emptySpace; i++)
 		{
-			if (this.column[column][i] == 0)
+			if (this.column[column][i] == 0 && emptySpace)
 			{
 				this.column[column][i] = 1;
-				placeHolder = false; 
+				emptySpace = false; 
 			}
 		}
 		rounds++;
 	}
 	public void onPlacedO(int column){ //coordinates of move
-		boolean placeHolder = true;
-		for (int i = 0; i <= 5 && placeHolder; i++)
+		boolean emptySpace = true;
+		for (int i = 0; i <= 5 && emptySpace; i++)
 		{
 			if (this.column[column][i] == 0)
 			{
 				this.column[column][i] = 2;
-				placeHolder = false;
+				emptySpace = false;
 			}
 				
 		}
@@ -71,6 +74,47 @@ public class Connect implements Grid {
 	public int getHeight() {
 		// TODO Auto-generated method stub
 		return height;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int xCoord = e.getX();
+		if (xCoord < 100)
+		{
+			tile[0] = true;
+		}
+		for (int i = 1; i <= 6; i++)
+		{
+			if (xCoord > i * 100 && xCoord < (i * 100) + 100)
+			{
+				tile[i] = true;
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
