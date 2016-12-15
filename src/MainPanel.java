@@ -46,13 +46,16 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 			g.drawImage(TicTacToeMenu.onePlayerText.img, TicTacToeMenu.onePlayer.x, TicTacToeMenu.onePlayer.y, null);
 			g.drawImage(TicTacToeMenu.twoPlayer.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			g.drawImage(TicTacToeMenu.twoPlayerText.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
-
 			break;
 		}
 	}
 
 	public void run() throws InterruptedException, IOException {
-		Thread.sleep(30);
+	switch(gameState) {
+	case 2: 
+		SuperTicTacToe ticTacToe = new SuperTicTacToe();
+		ticTacToe.run();
+	}
 	}
 
 	@Override

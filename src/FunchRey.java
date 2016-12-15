@@ -43,6 +43,7 @@ public class FunchRey {
 		while (true) {
 
 			myPanel.run();
+			Thread.sleep(30);
 			myPanel.repaint();
 		}
 

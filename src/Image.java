@@ -37,7 +37,7 @@ public class Image {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} else if (this.hover) {
+		} else if (this.hover && !Mouse.pointOnImage(this, x, y)) {
 			try {
 				this.setImage(this.name);
 			} catch (IOException e1) {
