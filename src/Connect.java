@@ -1,17 +1,42 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
-public class Connect implements Grid, MouseListener {
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+public class Connect extends JPanel implements MouseListener, KeyListener, MouseMotionListener 
+{
 	
-	int rounds = 0;
+	int round = 0;
 	int width;
 	int height;
 	int [][] column = new int[6][5];
-	boolean [] tile = new boolean [6];
+	int[] numPieces = new int [7];
+	boolean turn;
+	int columnNum = 0;
+	ConnectPlayer cp = new ConnectPlayer();
 
+	BufferedImage boardImg, redPiece, bluePiece, whoseTurn; 
 	
-	public Connect()
+	public Connect() throws IOException
 	{
+		URL fileURL = getClass().getResource("Connect4Board.png");
+		boardImg = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("redpiece.png");
+		redPiece = ImageIO.read(fileURL);
+
+		fileURL = getClass().getResource("bluepiece.png");
+		bluePiece = ImageIO.read(fileURL);
+
 		for (int i = 0; i < 6; i++)
 		{
 			for(int j = 0; j < 5; j++)
@@ -19,84 +44,68 @@ public class Connect implements Grid, MouseListener {
 		}
 	}
 	
-	public void onPlacedX(int column){ //coordinates of move
-		boolean emptySpace = true;
-		for (int i = 0; i <= 5 && emptySpace; i++)
+	@Override
+	public void paintComponent(Graphics g)
+	{	
+		g.drawImage(boardImg, 0, 0, null);
+		
+		if (turn)
 		{
-			if (this.column[column][i] == 0 && emptySpace)
-			{
-				this.column[column][i] = 1;
-				emptySpace = false; 
-			}
+			whoseTurn = bluePiece;
 		}
-		rounds++;
-	}
-	public void onPlacedO(int column){ //coordinates of move
-		boolean emptySpace = true;
-		for (int i = 0; i <= 5 && emptySpace; i++)
+		else if (!turn)
 		{
-			if (this.column[column][i] == 0)
+			whoseTurn = redPiece;
+		}
+		
+		if (cp.column)
+		{
+			g.drawImage(whoseTurn, (columnNum - 1) * 100 + 5, 104, null); //+4 to y and + 5 to x
+		}
+		
+		for (int i = 0; i < 6; i++)
+		{
+			for(int j = 0; j < 5; j++)
 			{
-				this.column[column][i] = 2;
-				emptySpace = false;
+				if (column[i][j] == 1)
+				{
+					//draw player 1
+				}
+				if (column[i][j] == 2)
+				{
+				//draw player 2
+				}
 			}
 				
 		}
-		rounds++;
+		
 	}
 	
-	@Override
-	public void setGrid(int w, int h) {
-		// TODO Auto-generated method stub
-		width = w;
-		height = h;
-	}
-
-	@Override
-	public void setWidth(int w) {
-		// TODO Auto-generated method stub
-		width = w;
-	}
-
-	@Override
-	public void setHeight(int h) {
-		// TODO Auto-generated method stub
-		height = h;
-	}
-
-	@Override
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return width;
-	}
-
-	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return height;
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int xCoord = e.getX();
-		if (xCoord < 100)
-		{
-			tile[0] = true;
-		}
-		for (int i = 1; i <= 6; i++)
-		{
-			if (xCoord > i * 100 && xCoord < (i * 100) + 100)
-			{
-				tile[i] = true;
-			}
-		}
+		columnNum = 0;
+		cp.turn(xCoord);
+		columnNum = cp.columnNum;
+		round++;
+		
+		if (round % 2 == 0) //false = player 1 turn
+			turn = false; 
+		else if(round % 2 != 0)
+			turn = true; // true = player 2 turn 
+	
 	}
-
+	
+	public void run() throws IOException
+	{
+		
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -108,7 +117,7 @@ public class Connect implements Grid, MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -117,5 +126,34 @@ public class Connect implements Grid, MouseListener {
 		
 	}
 	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
