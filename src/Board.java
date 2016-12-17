@@ -2,7 +2,15 @@
 public abstract class Board implements Grid {
 	
 	int width, height;
-	int[][] space; 
+	int[][] space; {
+		space = new int[3][3];
+		
+		for (int col = 0; col < this.width; col++) {
+			for (int row = 0; row < this.height; row++) {
+				this.space[col][row] = 0;
+			}
+ 		}
+	}
 	private int winner;
 	
 	@Override
@@ -12,12 +20,8 @@ public abstract class Board implements Grid {
 		this.width = 3;
 		this.height = 3;
 		
-		this.space = new int[w][h];
-		for (int col = 0; col < this.width; col++) {
-			for (int row = 0; row < this.height; row++) {
-				this.space[col][row] = 0;
-			}
- 		}
+		
+		
 	}
 
 	@Override

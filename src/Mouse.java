@@ -33,6 +33,9 @@ public class Mouse implements MouseMotionListener, MouseListener {
 			} else if (pointOnImage(TicTacToeMenu.twoPlayer, e.getX(), e.getY())) {
 				MainPanel.gameState = 4;
 			}
+			break;
+		case 3:
+			MainPanel.ticTacToe.mousePressed(e);
 		}
 	}
 

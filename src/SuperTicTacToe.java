@@ -8,24 +8,28 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 
-public class SuperTicTacToe extends MainPanel implements KeyListener, MouseMotionListener, MouseListener {
+public class SuperTicTacToe implements KeyListener, MouseMotionListener, MouseListener {
 
-	static int play = 1;
+	static int play = 0;
+	static int mainColumn = -1, mainRow = -1;
+	static int miniColumn = -1, miniRow = -1;
+	
+	static Board mainBoard;
+	static Player p1, p2;
 	
 	
 	SuperTicTacToe() throws IOException {
 		// TODO Auto-generated constructor stub
 		
-		Board mainBoard = new MainBoard();
-		Player p1 = new HumanPlayer();
-		Player p2;
+		mainBoard = new MainBoard();
+		p1 = new HumanPlayer(1);
+		
 		if (MainPanel.gameState == 3) {
-			p2 = new ComputerPlayer();
+			p2 = new HumanPlayer(2);
 		} else {
-			p2 = new HumanPlayer();
+			p2 = new HumanPlayer(2);
 		}
 	}
-	
 	
 
 	@Override
@@ -37,6 +41,22 @@ public class SuperTicTacToe extends MainPanel implements KeyListener, MouseMotio
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+		if (play % 2 == 0) {
+			try {
+				p1.move(e.getX(), e.getY());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} else {
+			try {
+				p2.move(e.getX(), e.getY());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}		
 		
 	}
 
@@ -89,7 +109,9 @@ public class SuperTicTacToe extends MainPanel implements KeyListener, MouseMotio
 	}
 	
 	public void run() {
-		 
+
 	}
+
+	
 	
 }

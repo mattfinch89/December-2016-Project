@@ -24,17 +24,20 @@ import javax.swing.JPanel;
 
 public class MainPanel extends JPanel implements KeyListener, MouseMotionListener, MouseListener {
 
-	static int gameState = 1;
+	static int gameState = 3;
 	Mouse mouse = new Mouse();
-
+	static SuperTicTacToe ticTacToe;
+	
 	MainPanel() throws IOException {
 		MainMenu m = new MainMenu(); // Instantiates objects
 		TicTacToeMenu t = new TicTacToeMenu();
+		ticTacToe = new SuperTicTacToe();
+		
 	}
 
 	public void paintComponent(Graphics g) {
 		// draw the background
-
+		
 		switch (gameState) {
 		case 1:
 			g.drawImage(MainMenu.background.img, MainMenu.background.x, MainMenu.background.y, null);
@@ -47,15 +50,40 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 			g.drawImage(TicTacToeMenu.twoPlayer.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			g.drawImage(TicTacToeMenu.twoPlayerText.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			break;
+		case 3: 
+			g.drawImage(MainBoard.background.img, MainBoard.background.x, MainBoard.background.y, null);
+			
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					g.drawImage(MainBoard.miniBoard[i][j].background[i][j].img, 
+								MainBoard.miniBoard[i][j].background[i][j].x, 
+								MainBoard.miniBoard[i][j].background[i][j].y, null);
+				}
+			}
+			
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					for (int c = 0; c < 3; c++) {
+						for (int r = 0; r < 3; r++) {
+							g.drawImage(MainBoard.miniBoard[i][j].piece[c][r].img, 
+							MainBoard.miniBoard[i][j].piece[c][r].x, 
+							MainBoard.miniBoard[i][j].piece[c][r].y, 
+							null);
+						}
+					}
+					
+				}
+			}
 		}
 	}
 
 	public void run() throws InterruptedException, IOException {
-	switch(gameState) {
-	case 2: 
-		SuperTicTacToe ticTacToe = new SuperTicTacToe();
-		ticTacToe.run();
-	}
+		switch (gameState) {
+		case 3:
+			//ticTacToe = new SuperTicTacToe();
+			ticTacToe.run();
+			break;
+		}
 	}
 
 	@Override

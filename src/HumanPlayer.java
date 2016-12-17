@@ -1,4 +1,64 @@
+import java.io.IOException;
 
-public class HumanPlayer extends Player{
+public class HumanPlayer extends Player {
+
+	HumanPlayer(int id) {
+		super(id);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void move(int x, int y) throws IOException {
+		// TODO Auto-generated method stub
+
+		if (isValidMove(getMainColumn(x), getMainRow(y))) {
+//			setMainColumn(x);
+//			setMainRow(y);
+			
+			
+			MainBoard.miniBoard[getMainRow(y)][getMainColumn(x)].move(x, y, this.playerID);
+			
+		}
+
+	}
+
+	private boolean isValidMove(int x, int y) {
+		// TODO Auto-generated method stub
+
+		if ((SuperTicTacToe.mainColumn == -1) || (x == SuperTicTacToe.miniColumn
+				&& y == SuperTicTacToe.miniRow)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public static void setMainColumn(int x) {
+		SuperTicTacToe.mainColumn = x / 233;
+		
+	}
+
+	public static void setMainRow(int y) {
+		SuperTicTacToe.mainRow = y / 233;
+	}
+	
+	public static int getMainColumn(int x) {
+		return x / 233;
+		
+	}
+
+	public static int getMainRow(int y) {
+		return y / 233;
+	}
+
+//	public void miniColumn(int x) {
+//		SuperTicTacToe.miniColumn = 
+//	}
+
+	public int miniRow(int y) {
+		return y;
+
+	}
 
 }
