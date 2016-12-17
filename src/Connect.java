@@ -18,15 +18,10 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int round = 0;
 	int width;
 	int height;
-	int[] numPieces = new int [7];
 	boolean [][] used = new boolean [8][7];
 	
-	int [] xCoordBlue = new int [43];
-	int [] yCoordBlue = new int [43];
-	int [] xCoordRed = new int [43];
-	int [] yCoordRed = new int [43];
+	boolean[][] colour = new boolean[8][7]; //whose turn it is 
 	
-	boolean turn;
 	int columnNum = 0;
 	ConnectPlayer cp = new ConnectPlayer();
 
@@ -51,32 +46,43 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	public void paintComponent(Graphics g)
 	{	
 		g.drawImage(boardImg, 0, 0, null);
-		
 		boolean y = true; //once the first unused tile is found stop running
-		
-		for (int i = 0; i < 7 && y; i++)
+			
+		for(int i = 1; i < 8; i++)
 		{
-			if (!used[columnNum][i])
+			for(int j = 1; j < 7; j++)
 			{
-				if(turn)
+				if (used[i][j])
 				{
-					xCoordBlue[i] = (columnNum - 1) * 100 + 5;
-					yCoordBlue[i] = 705 - (i * 100);
-					g.drawImage(bluePiece, xCoordBlue[i], yCoordBlue[i], null); //+4 to y and + 5 to x
-					y = false;
+					int xCoord = (i - 1) * 100 + 5;
+					int yCoord = 705 - (j * 100);
+					Piece previous = new Piece(xCoord, yCoord, this.colour[i][j]);
+					previous.draw(g);
 				}
-				else if(!turn)
-				{
-					xCoordRed[i] = (columnNum - 1) * 100 + 5;
-					yCoordRed[i] = 705 - (i * 100);
-					g.drawImage(redPiece, xCoordRed[i], yCoordRed[i], null); //+4 to y and + 5 to x
-					y = false;
-				}
-				
 			}
 		}
 		
-		
+		for (int i = 1; i < 7 && y; i++)
+			{
+				int xCoord = (columnNum - 1) * 100 + 5;
+				int yCoord = 705 - (i * 100);	
+				Piece p = new Piece(xCoord, yCoord, this.colour[columnNum][i]);
+				try 
+				{
+					p.loadImages();
+				} 
+				catch (IOException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (used[columnNum][i])
+				{		
+						p.draw(g);
+				}
+				
+			}
 	}
 	
 	@Override
@@ -89,15 +95,19 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 		columnNum = cp.columnNum;
 		round++;
 		
-		if (round % 2 == 0) //false = player 1 turn
-			turn = true; 
-		else if(round % 2 != 0)
-			turn = false; // true = player 2 turn 
+		for (int i = 1; i < 8; i++)
+			for(int j = 1; j < 7; j++)
+			{
+				if (round % 2 == 0) //true = player 1 turn
+					colour[i][j] = true; 
+				else if(round % 2 != 0)
+					colour[i][j] = false; // false = player 2 turn 
+			}
 		boolean z = true;
 		
-		for (int i = 0; i < 7 && z;i++)
+		for (int i = 1; i < 7 && z;i++)
 		{
-			if (!used[columnNum][i])
+			if (!used[columnNum][i] && yCoord > 100)
 			{
 				used[columnNum][i] = true; 
 				z = false;
