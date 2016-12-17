@@ -4,6 +4,7 @@ public class ConnectPlayer {
 	boolean column = false;
 	boolean row = false;
 	int rowNum = 0;
+	
 	public void turn (int x)
 	{
 		this.columnNum = 0;
@@ -18,4 +19,5 @@ public class ConnectPlayer {
 			}
 		}
 	}
+	
 }

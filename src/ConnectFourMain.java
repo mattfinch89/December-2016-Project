@@ -11,7 +11,7 @@ public class ConnectFourMain{
 		
 		//configures frame
 		fr.setTitle("Connect 4");
-		fr.setSize(700, 700);
+		fr.setSize(700, 722);
 		fr.setResizable(false);
 		fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fr.setLocationRelativeTo(null);
@@ -19,7 +19,7 @@ public class ConnectFourMain{
 		fr.setVisible(true);
 		
 		Connect cf = new Connect();
-		cf.setSize(700, 700);
+		cf.setSize(700, 800);
 		
 		cf.setVisible(true);
 		fr.setContentPane(cf);

@@ -18,13 +18,19 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int round = 0;
 	int width;
 	int height;
-	int [][] column = new int[6][5];
 	int[] numPieces = new int [7];
+	boolean [][] used = new boolean [8][7];
+	
+	int [] xCoordBlue = new int [43];
+	int [] yCoordBlue = new int [43];
+	int [] xCoordRed = new int [43];
+	int [] yCoordRed = new int [43];
+	
 	boolean turn;
 	int columnNum = 0;
 	ConnectPlayer cp = new ConnectPlayer();
 
-	BufferedImage boardImg, redPiece, bluePiece, whoseTurn; 
+	BufferedImage boardImg, redPiece, bluePiece; 
 	
 	public Connect() throws IOException
 	{
@@ -36,12 +42,9 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 
 		fileURL = getClass().getResource("bluepiece.png");
 		bluePiece = ImageIO.read(fileURL);
-
-		for (int i = 0; i < 6; i++)
-		{
-			for(int j = 0; j < 5; j++)
-			column[i][j] = 0;
-		}
+		for (int i = 0; i < 8; i++)
+			for(int j = 0; j < 7; j++)
+				used[i][j] = false; 
 	}
 	
 	@Override
@@ -49,35 +52,30 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	{	
 		g.drawImage(boardImg, 0, 0, null);
 		
-		if (turn)
-		{
-			whoseTurn = bluePiece;
-		}
-		else if (!turn)
-		{
-			whoseTurn = redPiece;
-		}
+		boolean y = true; //once the first unused tile is found stop running
 		
-		if (cp.column)
+		for (int i = 0; i < 7 && y; i++)
 		{
-			g.drawImage(whoseTurn, (columnNum - 1) * 100 + 5, 104, null); //+4 to y and + 5 to x
-		}
-		
-		for (int i = 0; i < 6; i++)
-		{
-			for(int j = 0; j < 5; j++)
+			if (!used[columnNum][i])
 			{
-				if (column[i][j] == 1)
+				if(turn)
 				{
-					//draw player 1
+					xCoordBlue[i] = (columnNum - 1) * 100 + 5;
+					yCoordBlue[i] = 705 - (i * 100);
+					g.drawImage(bluePiece, xCoordBlue[i], yCoordBlue[i], null); //+4 to y and + 5 to x
+					y = false;
 				}
-				if (column[i][j] == 2)
+				else if(!turn)
 				{
-				//draw player 2
+					xCoordRed[i] = (columnNum - 1) * 100 + 5;
+					yCoordRed[i] = 705 - (i * 100);
+					g.drawImage(redPiece, xCoordRed[i], yCoordRed[i], null); //+4 to y and + 5 to x
+					y = false;
 				}
-			}
 				
+			}
 		}
+		
 		
 	}
 	
@@ -85,16 +83,28 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int xCoord = e.getX();
+		int yCoord = e.getY();
 		columnNum = 0;
 		cp.turn(xCoord);
 		columnNum = cp.columnNum;
 		round++;
 		
 		if (round % 2 == 0) //false = player 1 turn
-			turn = false; 
+			turn = true; 
 		else if(round % 2 != 0)
-			turn = true; // true = player 2 turn 
-	
+			turn = false; // true = player 2 turn 
+		boolean z = true;
+		
+		for (int i = 0; i < 7 && z;i++)
+		{
+			if (!used[columnNum][i])
+			{
+				used[columnNum][i] = true; 
+				z = false;
+			}
+		}
+		
+		
 	}
 	
 	public void run() throws IOException
