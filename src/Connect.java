@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,10 +17,11 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int round = 0;
 	int width;
 	int height;
-	boolean [][] used = new boolean [8][7];
+	boolean gameover = true; 
 	
-	boolean[][] colour = new boolean[8][7]; //whose turn it is 
-	
+	boolean [][] used = new boolean [8][7]; //determines if tile is used or not
+	boolean[][] colour = new boolean[8][7]; //whose turn it is / colour of piece
+	int rowPlaced = 0;
 	int columnNum = 0;
 	ConnectPlayer cp = new ConnectPlayer();
 
@@ -46,7 +46,6 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	public void paintComponent(Graphics g)
 	{	
 		g.drawImage(boardImg, 0, 0, null);
-		boolean y = true; //once the first unused tile is found stop running
 			
 		for(int i = 1; i < 8; i++)
 		{
@@ -56,13 +55,15 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				{
 					int xCoord = (i - 1) * 100 + 5;
 					int yCoord = 705 - (j * 100);
+					
 					Piece previous = new Piece(xCoord, yCoord, this.colour[i][j]);
-					previous.draw(g);
+					previous.draw(g); //draws all previous moves
 				}
 			}
 		}
-		
-		for (int i = 1; i < 7 && y; i++)
+		if (gameover)
+		{
+			for (int i = 1; i < 7 && gameover; i++)
 			{
 				int xCoord = (columnNum - 1) * 100 + 5;
 				int yCoord = 705 - (i * 100);	
@@ -78,48 +79,59 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				}
 				
 				if (used[columnNum][i])
-				{		
-						p.draw(g);
+				{	
+					rowPlaced = i;
+					p.draw(g);
 				}
-				
 			}
+			
+			if (round % 2 == 0)//true = player 1 turn
+				colour[columnNum][rowPlaced] = true;
+			else
+				colour[columnNum][rowPlaced] = false; // false = player 2 turn
+			
+			if (round == 42)
+				gameover = false;
+		}
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int xCoord = e.getX();
-		int yCoord = e.getY();
-		columnNum = 0;
-		cp.turn(xCoord);
-		columnNum = cp.columnNum;
-		round++;
-		
-		for (int i = 1; i < 8; i++)
-			for(int j = 1; j < 7; j++)
-			{
-				if (round % 2 == 0) //true = player 1 turn
-					colour[i][j] = true; 
-				else if(round % 2 != 0)
-					colour[i][j] = false; // false = player 2 turn 
-			}
-		boolean z = true;
-		
-		for (int i = 1; i < 7 && z;i++)
+		if (gameover)
 		{
-			if (!used[columnNum][i] && yCoord > 100)
+			int xCoord = e.getX();
+			int yCoord = e.getY();
+			columnNum = 0;
+			cp.turn(xCoord);
+			columnNum = cp.columnNum;
+			
+			boolean z = true;
+			
+			for (int i = 1; i < 7 && z && gameover;i++)
 			{
-				used[columnNum][i] = true; 
-				z = false;
+				if (!used[columnNum][i] && yCoord > 100)
+				{
+					used[columnNum][i] = true; 
+					round++;
+					z = false;
+				}
 			}
 		}
-		
-		
 	}
 	
 	public void run() throws IOException
 	{
+		cp.isWinner(this.colour, this.used);
 		
+		if (cp.winner == 1) //player 1 wins
+		{
+			System.out.println("Winner");
+		}
+		else if (cp.winner == 2) //player 2 wins
+		{
+			
+		}
 	}
 	
 	@Override
@@ -177,3 +189,12 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	}
 	
 }
+
+
+
+
+
+
+
+
+

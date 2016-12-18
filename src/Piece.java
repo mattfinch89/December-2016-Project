@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 public class Piece {
 	
 	private int x, y;
+//	private static int round;
 	private static BufferedImage redPiece, bluePiece;
 	
 	private boolean blue;
@@ -35,9 +36,18 @@ public class Piece {
 			g.drawImage(redPiece, x, y, null);
 	}
 	
-	public boolean colour(){
-		return blue;
-	}
-		
+//	public static int rounds()
+//	{
+//		System.out.println(round);
+//		return round;
+//	}
+
+//	public boolean colour(){
+//		if (round % 2 == 0)
+//			return blue;
+//		else
+//			return !blue;
+//	}
+//		
 }
  
