@@ -20,11 +20,12 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	boolean gameover = true; 
 	
 	boolean [][] used = new boolean [8][7]; //determines if tile is used or not
-	boolean[][] colour = new boolean[8][7]; //whose turn it is / colour of piece
+	int[][] colour = new int[8][7]; //whose turn it is / colour of piece
+	
 	int rowPlaced = 0;
 	int columnNum = 0;
+	
 	ConnectPlayer cp = new ConnectPlayer();
-
 	BufferedImage boardImg, redPiece, bluePiece; 
 	
 	public Connect() throws IOException
@@ -37,9 +38,13 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 
 		fileURL = getClass().getResource("bluepiece.png");
 		bluePiece = ImageIO.read(fileURL);
+		
 		for (int i = 0; i < 8; i++)
 			for(int j = 0; j < 7; j++)
+			{
 				used[i][j] = false; 
+				colour[i][j] = 0;
+			}
 	}
 	
 	@Override
@@ -86,9 +91,9 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 			}
 			
 			if (round % 2 == 0)//true = player 1 turn
-				colour[columnNum][rowPlaced] = true;
+				colour[columnNum][rowPlaced] = 1;
 			else
-				colour[columnNum][rowPlaced] = false; // false = player 2 turn
+				colour[columnNum][rowPlaced] = 2; // false = player 2 turn
 			
 			if (round == 42)
 				gameover = false;
@@ -124,13 +129,13 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	{
 		cp.isWinner(this.colour, this.used);
 		
-		if (cp.winner == 1) //player 1 wins
+		if (cp.winner == 1) //player 2 wins
 		{
-			System.out.println("Winner");
+			gameover = false;
 		}
-		else if (cp.winner == 2) //player 2 wins
+		else if (cp.winner == 2) //player 1 wins
 		{
-			
+			gameover = false; 
 		}
 	}
 	

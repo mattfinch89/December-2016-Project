@@ -22,33 +22,60 @@ public class ConnectPlayer {
 		}
 	}
 	
-	public void isWinner(boolean[][] colour, boolean [][] used)
+	public void isWinner(int[][] colour, boolean [][] used)
 	{
 		for (int i = 1; i < colour[1].length; i++) // vertical check
 		{
-			for (int j = 1; j < colour[2].length; j++)
+			boolean firstVert = colour[i][1] == colour[i][2] && colour[i][2] == colour[i][3] 
+					&& colour[i][3] == colour[i][4];
+			boolean secondVert = colour[i][2] == colour[i][3] 
+					&& colour[i][3] == colour[i][4] && colour[i][4] == colour[i][5];
+			boolean thirdVert = colour[i][3] == colour[i][4] && colour[i][4] == colour[i][5] 
+					&& colour[i][5] == colour[i][6];
+			if (firstVert || secondVert || thirdVert)
 			{
-				System.out.println(verticalWin);
-				if (colour[i][j] && used[i][j])
+				if (colour[i][4] == 1) 
 				{
-					if (!vertical)
-						verticalWin = 0;
-					vertical = true;
-					verticalWin++;
-				}
-				else if (!colour[i][j] && used[i][j])
-				{
-					if (vertical)
-						verticalWin = 0;
-					vertical = false;
-					verticalWin--;
-				}	
-				if (verticalWin == 4)
 					winner = 1;
-				if(verticalWin == -4)
+				}
+				else if (colour[i][4] == 2)
+				{
 					winner = 2;
+				}
 			}
 		}
+		
+		for (int i = 1; i < colour[2].length; i++) // Horizontal check
+		{
+			boolean firstHor = colour[1][i] == colour[2][i] && colour[2][i] == colour[3][i] 
+					&& colour[3][i] == colour[4][i];
+			boolean secondHor = colour[2][i] == colour[3][i] 
+					&& colour[3][i] == colour[4][i] && colour[4][i] == colour[5][i];
+			boolean thirdHor = colour[3][i] == colour[4][i] && colour[4][i] == colour[5][i] 
+					&& colour[5][i] == colour[6][i];
+			boolean fourthHor = colour[4][i] == colour[5][i] && colour[5][i] == colour[6][i] 
+					&& colour[6][i] == colour[7][i];
+			if (firstHor || secondHor || thirdHor || fourthHor)
+			{
+				if (colour[4][i] == 1) 
+				{
+					winner = 1;
+				}
+				else if (colour[4][i] == 2)
+				{
+					winner = 2;
+				}
+			}
+		}
+		
 	}
-	
 }
+
+
+
+
+
+
+
+
+

@@ -11,8 +11,8 @@ public class Piece {
 //	private static int round;
 	private static BufferedImage redPiece, bluePiece;
 	
-	private boolean blue;
-	public Piece (int x, int y, boolean blue)
+	private int blue;
+	public Piece (int x, int y, int blue)
 	{
 		this.blue = blue; 
 		this.x = x;
@@ -29,10 +29,10 @@ public class Piece {
 	
 	public void draw(Graphics g)
 	{
-		if (blue)
+		if (blue == 1)
 			g.drawImage(bluePiece, x, y, null);
 		
-		else if(!blue)
+		else if(blue == 2)
 			g.drawImage(redPiece, x, y, null);
 	}
 	
