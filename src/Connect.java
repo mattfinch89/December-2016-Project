@@ -19,12 +19,14 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int height;
 	boolean gameover = true; 
 	int gamestate = 1;
+	boolean hover; 
+	int columnHover = 0; 
 	
-	boolean [][] used = new boolean [8][7]; //determines if tile is used or not
-	int[][] colour = new int[8][7]; //whose turn it is / colour of piece
-	
+	boolean [][] used = new boolean [8][7]; //determines if tile is used or not [column][row]
+	int[][] colour = new int[8][7]; //whose turn it is / colour of piece [column][row]
 	int rowPlaced = 0;
 	int columnNum = 0;
+	int hoverX;
 	
 	ConnectPlayer cp = new ConnectPlayer();
 	BufferedImage boardImg, redPiece, bluePiece; 
@@ -40,7 +42,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 		fileURL = getClass().getResource("bluepiece.png");
 		bluePiece = ImageIO.read(fileURL);
 		
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 8; i++) // set all arrays to false and 0
 			for(int j = 0; j < 7; j++)
 			{
 				used[i][j] = false; 
@@ -73,7 +75,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 						int xCoord = (i - 1) * 100 + 5;
 						int yCoord = 705 - (j * 100);
 						Piece previous = new Piece(xCoord, yCoord, this.colour[i][j]);
-						previous.draw(g); //draws all previous moves
+						previous.draw(g); //draws all previous pieces
 					}
 				}
 			}
@@ -94,13 +96,13 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 					}
 					
 					if (used[columnNum][i])
-					{	
+					{ // will draw all pieces in the tile placed
 						p.draw(g);
 						rowPlaced = i;
 					}
 				}
 				
-				if (gameover)
+				if (gameover) // changes the colour of the tile/switches turns
 				{
 					if (round % 2 == 0)//true = player 1 turn
 						colour[columnNum][rowPlaced] = 1;
@@ -121,7 +123,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 			int yCoord = e.getY();
 			columnNum = 0;
 			cp.turn(xCoord);
-			columnNum = cp.columnNum;
+			columnNum = cp.columnNum; //refer to ConnectPlayer class
 			
 			boolean end = true;
 			switch (gamestate)
@@ -130,12 +132,12 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 			case 1:
 				for (int i = 1; i < 7 && end && gameover;i++)
 				{
-					if (!used[columnNum][i] && yCoord > 100)
+					if (!used[columnNum][i] && yCoord > 100) //will check for the first row without a piece
 					{	
-						round++;
-						used[columnNum][i] = true; 
-						System.out.println(round);
-						end = false;
+						round++; 
+						used[columnNum][i] = true; //create a new piece in that slot
+						System.out.println(round); 
+						end = false; //so it doesn't keep checking and make all the above tiles true
 					}
 				}
 			break;
@@ -159,6 +161,20 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				System.out.println("Winner");
 				gameover = false; 
 			}
+			
+//			if (hover)
+//			{
+//				boolean end = true; 
+//				for (int i = 1; i < 7 && end && gameover;i++)
+//				{
+//					if (!used[columnHover][i])
+//					{	
+//						used[columnHover][i] = true; 
+//						end = false;
+//					}
+//				}
+//			}
+			
 			break;
 		}
 	}
@@ -178,7 +194,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -212,9 +228,11 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) { //for the mouse hover
 		// TODO Auto-generated method stub
-		
+		hover = true; 
+		this.hoverX = e.getX();
+		columnHover = (hoverX / 100) + 1; 
 	}
 	
 }

@@ -14,10 +14,10 @@ public class ConnectPlayer {
 		this.column = false; 
 		for (int i = 0; i <= 6; i++) //determine which column was clicked
 		{
-			if (x > i * 100 && x < (i * 100) + 100)
+			if (x > i * 100 && x < (i * 100) + 100) //separates the columns into 7 different sections
 			{
-				this.column = true;
-				this.columnNum += i + 1;
+				this.column = true;  //tells you the column placed in
+				this.columnNum += i + 1; //tells you the column number starting at 1 ending at 7
 			}
 		}
 	}
