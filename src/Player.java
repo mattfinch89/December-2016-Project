@@ -9,7 +9,6 @@ public abstract class Player {
 	
 	Player(int id) {
 		
-		
 		this.playerID = id;
 		if (id == 1) {
 			imgName = "x.png";

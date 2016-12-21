@@ -12,10 +12,6 @@ public class HumanPlayer extends Player {
 		// TODO Auto-generated method stub
 
 		if (isValidMove(getMainColumn(x), getMainRow(y))) {
-//			setMainColumn(x);
-//			setMainRow(y);
-			
-			
 			MainBoard.miniBoard[getMainRow(y)][getMainColumn(x)].move(x, y, this.playerID);
 			
 		}
@@ -25,8 +21,10 @@ public class HumanPlayer extends Player {
 	private boolean isValidMove(int x, int y) {
 		// TODO Auto-generated method stub
 
-		if ((SuperTicTacToe.mainColumn == -1) || (x == SuperTicTacToe.miniColumn
-				&& y == SuperTicTacToe.miniRow)) {
+		if (((SuperTicTacToe.mainColumn == -1) || (x == SuperTicTacToe.miniColumn
+				&& y == SuperTicTacToe.miniRow) || 
+				MainBoard.miniBoard[SuperTicTacToe.miniRow][SuperTicTacToe.miniColumn].winnerID != 0) && 
+				MainBoard.miniBoard[y][x].winnerID == 0) {
 			return true;
 		} else {
 			return false;
@@ -36,7 +34,6 @@ public class HumanPlayer extends Player {
 
 	public static void setMainColumn(int x) {
 		SuperTicTacToe.mainColumn = x / 233;
-		
 	}
 
 	public static void setMainRow(int y) {
@@ -51,14 +48,6 @@ public class HumanPlayer extends Player {
 	public static int getMainRow(int y) {
 		return y / 233;
 	}
-
-//	public void miniColumn(int x) {
-//		SuperTicTacToe.miniColumn = 
-//	}
-
-	public int miniRow(int y) {
-		return y;
-
-	}
+	
 
 }

@@ -20,8 +20,6 @@ public abstract class Board implements Grid {
 		this.width = 3;
 		this.height = 3;
 		
-		
-		
 	}
 
 	@Override

@@ -36,6 +36,14 @@ public class Mouse implements MouseMotionListener, MouseListener {
 			break;
 		case 3:
 			MainPanel.ticTacToe.mousePressed(e);
+			break;
+		case 5: 
+			try {
+				PauseMenu.mousePressed(e);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

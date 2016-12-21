@@ -13,7 +13,7 @@ public class FunchRey {
 
 		// make our frame visible
 		myFrame.setTitle("FunchReyGames");
-		myFrame.setSize(700, 700);
+		myFrame.setSize(700, 725);
 		myFrame.setResizable(false);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.setAlwaysOnTop(true);
@@ -24,8 +24,7 @@ public class FunchRey {
 		// create a panel
 		MainPanel myPanel = new MainPanel();
 		
-
-		myPanel.setSize(700, 700);
+		myPanel.setSize(700, 725);
 
 		// put the panel inside the frame
 		myFrame.setContentPane(myPanel);
@@ -41,7 +40,6 @@ public class FunchRey {
 		myPanel.setVisible(true);
 		
 		while (true) {
-
 			myPanel.run();
 			myPanel.repaint();
 			Thread.sleep(30);

@@ -24,8 +24,9 @@ import javax.swing.JPanel;
 
 public class MainPanel extends JPanel implements KeyListener, MouseMotionListener, MouseListener {
 
-	static int gameState = 3;
+	static int gameState = 1;
 	Mouse mouse = new Mouse();
+	PauseMenu pauseMenu = new PauseMenu();
 	static SuperTicTacToe ticTacToe;
 	
 	MainPanel() throws IOException {
@@ -50,6 +51,7 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 			g.drawImage(TicTacToeMenu.twoPlayer.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			g.drawImage(TicTacToeMenu.twoPlayerText.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			break;
+		case 5: 
 		case 3: 
 			g.drawImage(MainBoard.background.img, MainBoard.background.x, MainBoard.background.y, null);
 			
@@ -58,6 +60,10 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 					g.drawImage(MainBoard.miniBoard[i][j].background[i][j].img, 
 								MainBoard.miniBoard[i][j].background[i][j].x, 
 								MainBoard.miniBoard[i][j].background[i][j].y, null);
+					
+					g.drawImage(MainBoard.miniBoard[j][i].thisSquare.img, 
+							MainBoard.miniBoard[j][i].thisSquare.x, 
+							MainBoard.miniBoard[j][i].thisSquare.y, null);
 				}
 			}
 			
@@ -70,9 +76,19 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 							MainBoard.miniBoard[i][j].piece[c][r].y, 
 							null);
 						}
-					}
-					
+					}	
 				}
+			}
+			
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					g.drawImage(MainBoard.miniBoard[i][j].bigWinner.img, MainBoard.miniBoard[i][j].bigWinner.x, MainBoard.miniBoard[i][j].bigWinner.y, null);
+				}
+			}
+			
+			if (gameState == 5) {
+				g.drawImage(pauseMenu.background.img, pauseMenu.background.x, pauseMenu.background.y, null);
+				g.drawImage(pauseMenu.backButton.img, pauseMenu.backButton.x, pauseMenu.backButton.y, null);
 			}
 		}
 	}
@@ -93,7 +109,12 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+switch (MainPanel.gameState) {
+case 5:
+case 3: ticTacToe.keyReleased(e);
+break;
 
+}
 	}
 
 	@Override
