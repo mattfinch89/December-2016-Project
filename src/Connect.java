@@ -18,6 +18,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int width;
 	int height;
 	boolean gameover = true; 
+	int gamestate = 1;
 	
 	boolean [][] used = new boolean [8][7]; //determines if tile is used or not
 	int[][] colour = new int[8][7]; //whose turn it is / colour of piece
@@ -49,93 +50,116 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	
 	@Override
 	public void paintComponent(Graphics g)
-	{	
-		g.drawImage(boardImg, 0, 0, null);
-			
-		for(int i = 1; i < 8; i++)
+	{
+		switch (gamestate)
 		{
-			for(int j = 1; j < 7; j++)
+		
+		case 1:
+			if (gameover)
 			{
-				if (used[i][j])
+				g.drawImage(boardImg, 0, 0, null);
+			}
+			else if (!gameover)
+			{
+				g.drawImage(boardImg, 0, 0, null);
+			}
+
+			for(int i = 1; i < 8; i++)
+			{
+				for(int j = 1; j < 7; j++)
 				{
-					int xCoord = (i - 1) * 100 + 5;
-					int yCoord = 705 - (j * 100);
-					
-					Piece previous = new Piece(xCoord, yCoord, this.colour[i][j]);
-					previous.draw(g); //draws all previous moves
+					if (used[i][j])
+					{
+						int xCoord = (i - 1) * 100 + 5;
+						int yCoord = 705 - (j * 100);
+						Piece previous = new Piece(xCoord, yCoord, this.colour[i][j]);
+						previous.draw(g); //draws all previous moves
+					}
 				}
 			}
-		}
-		if (gameover)
-		{
-			for (int i = 1; i < 7 && gameover; i++)
-			{
-				int xCoord = (columnNum - 1) * 100 + 5;
-				int yCoord = 705 - (i * 100);	
-				Piece p = new Piece(xCoord, yCoord, this.colour[columnNum][i]);
-				try 
+			
+				for (int i = 1; i < 7 && gameover; i++)
 				{
-					p.loadImages();
-				} 
-				catch (IOException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					int xCoord = (columnNum - 1) * 100 + 5;
+					int yCoord = 705 - (i * 100);	
+					Piece p = new Piece(xCoord, yCoord, this.colour[columnNum][i]);
+					try 
+					{
+						p.loadImages();
+					} 
+					catch (IOException e) 
+					{
+						//TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					if (used[columnNum][i])
+					{	
+						p.draw(g);
+						rowPlaced = i;
+					}
 				}
 				
-				if (used[columnNum][i])
-				{	
-					rowPlaced = i;
-					p.draw(g);
+				if (gameover)
+				{
+					if (round % 2 == 0)//true = player 1 turn
+						colour[columnNum][rowPlaced] = 1;
+					else
+						colour[columnNum][rowPlaced] = 2; // false = player 2 turn
+					
+					if (round == 42)
+						gameover = false;
 				}
-			}
-			
-			if (round % 2 == 0)//true = player 1 turn
-				colour[columnNum][rowPlaced] = 1;
-			else
-				colour[columnNum][rowPlaced] = 2; // false = player 2 turn
-			
-			if (round == 42)
-				gameover = false;
+				break;
 		}
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (gameover)
-		{
 			int xCoord = e.getX();
 			int yCoord = e.getY();
 			columnNum = 0;
 			cp.turn(xCoord);
 			columnNum = cp.columnNum;
 			
-			boolean z = true;
-			
-			for (int i = 1; i < 7 && z && gameover;i++)
+			boolean end = true;
+			switch (gamestate)
 			{
-				if (!used[columnNum][i] && yCoord > 100)
+			case 0:
+			case 1:
+				for (int i = 1; i < 7 && end && gameover;i++)
 				{
-					used[columnNum][i] = true; 
-					round++;
-					z = false;
+					if (!used[columnNum][i] && yCoord > 100)
+					{	
+						round++;
+						used[columnNum][i] = true; 
+						System.out.println(round);
+						end = false;
+					}
 				}
+			break;
 			}
-		}
 	}
 	
 	public void run() throws IOException
 	{
-		cp.isWinner(this.colour, this.used);
-		
-		if (cp.winner == 1) //player 2 wins
+		switch (gamestate)
 		{
-			gameover = false;
-		}
-		else if (cp.winner == 2) //player 1 wins
-		{
-			gameover = false; 
+		case 1: 
+			cp.isWinner(this.colour, this.used);
+			
+			if (cp.winner == 1) //player 2 wins
+			{
+				System.out.println("Winner");
+				gameover = false;
+			}
+			else if (cp.winner == 2) //player 1 wins
+			{
+				System.out.println("Winner");
+				gameover = false; 
+			}
+			break;
 		}
 	}
 	
