@@ -19,8 +19,8 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int height;
 	boolean gameover = true; 
 	int gamestate = 1;
-	boolean hover; 
 	int columnHover = 0; 
+	int currentX;
 	
 	boolean [][] used = new boolean [8][7]; //determines if tile is used or not [column][row]
 	int[][] colour = new int[8][7]; //whose turn it is / colour of piece [column][row]
@@ -162,19 +162,20 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				gameover = false; 
 			}
 			
-//			if (hover)
-//			{
-//				boolean end = true; 
-//				for (int i = 1; i < 7 && end && gameover;i++)
-//				{
-//					if (!used[columnHover][i])
-//					{	
-//						used[columnHover][i] = true; 
-//						end = false;
-//					}
-//				}
-//			}
-			
+			if (gameover)
+			{
+				boolean end = true; 
+				for (int i = 1; i < 7 && end;i++)
+				{
+					columnHover = (this.currentX / 100) + 1;
+					if (!used[columnHover][i])
+					{	
+						System.out.println(columnHover);
+						used[columnHover][i] = true; 
+						end = false;
+					}
+				}
+			}
 			break;
 		}
 	}
@@ -200,7 +201,6 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
@@ -230,9 +230,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	@Override
 	public void mouseMoved(MouseEvent e) { //for the mouse hover
 		// TODO Auto-generated method stub
-		hover = true; 
-		this.hoverX = e.getX();
-		columnHover = (hoverX / 100) + 1; 
+		this.currentX = e.getX();
 	}
 	
 }
