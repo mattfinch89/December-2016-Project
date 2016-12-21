@@ -8,38 +8,40 @@ public class FunchRey {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		// TODO Auto-generated method stub
 
-		// declare and initialize a JFrame
+		// Declare and initialize a JFrame
 		JFrame myFrame = new JFrame();
 
-		// make our frame visible
+		// Make the frame visible
 		myFrame.setTitle("FunchReyGames");
 		myFrame.setSize(700, 725);
 		myFrame.setResizable(false);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		myFrame.setAlwaysOnTop(true);
 		myFrame.setLocationRelativeTo(null);
-
 		myFrame.setVisible(true);
 
-		// create a panel
+		// Create a panel
 		MainPanel myPanel = new MainPanel();
 		
 		myPanel.setSize(700, 725);
 
-		// put the panel inside the frame
+		// Put the panel inside the frame
 		myFrame.setContentPane(myPanel);
 
-		// enable mouse motion listener
+		// Enable mouse motion listener
 		myPanel.addMouseMotionListener(myPanel);
 		myPanel.addMouseListener(myPanel);
 
-		// enable key listener
-
+		// Enable key listener
 		myPanel.addKeyListener(myPanel);
 		myPanel.requestFocus();
+		
+		// Make the panel visible 
 		myPanel.setVisible(true);
 		
 		while (true) {
+			
+			// Run and paint the game, wait a bit in between
 			myPanel.run();
 			myPanel.repaint();
 			Thread.sleep(30);
