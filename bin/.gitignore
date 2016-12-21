@@ -1,0 +1,41 @@
+/Board.class
+<<<<<<< HEAD
+/Grid.class
+/Main.class
+/ConnectFourMain.class
+/Connect.class
+/ConnectFourTile.class
+/Tiles.class
+/FunchRey.class
+=======
+/Default.png
+/FunchRey.class
+/Grid.class
+/Image.class
+/MainMenu.class
+/MainPanel.class
+/Menu Background.png
+/Mouse.class
+/One_Player.png
+/PlayButton_1.png
+/PlayButton_2.png
+/SuperTicTacToe.class
+/SuperTicTacToe.png
+/TTTBackground.png
+/TTTPlayButton.png
+/TicTacToeMenu.class
+/Two_Player.png
+/MainBoard.class
+/MiniBoard.class
+/HumanPlayer.class
+/Player1.class
+/Player.class
+/ComputerPlayer.class
+>>>>>>> finch
+/Connect4Board.png
+/Connect4Board2.png
+/ConnectPlayer.class
+/redpiece.png
+/bluepiece.png
+/Piece.class
+/Piece$Type.class
