@@ -26,44 +26,43 @@ public class ConnectPlayer {
 	{
 		for (int i = 1; i < colour[1].length; i++) // vertical check
 		{
-			boolean firstVert = colour[i][1] == colour[i][2] && colour[i][2] == colour[i][3] 
-					&& colour[i][3] == colour[i][4];
-			boolean secondVert = colour[i][2] == colour[i][3] 
-					&& colour[i][3] == colour[i][4] && colour[i][4] == colour[i][5];
-			boolean thirdVert = colour[i][3] == colour[i][4] && colour[i][4] == colour[i][5] 
-					&& colour[i][5] == colour[i][6];
-			if (firstVert || secondVert || thirdVert)
+			for (int j = 1; j < colour[2].length - 4; j++)
 			{
-				if (colour[i][4] == 1) 
+				boolean firstVert = colour[i][j] == colour[i][j + 1] 
+						&& colour[i][j + 1] == colour[i][j + 2] 
+						&& colour[i][j + 2] == colour[i][j + 3];
+				if (firstVert)
 				{
-					winner = 1;
-				}
-				else if (colour[i][4] == 2)
-				{
-					winner = 2;
+					if (colour[i][4] == 1) 
+					{
+						winner = 1;
+					}
+					else if (colour[i][4] == 2)
+					{
+						winner = 2;
+					}
 				}
 			}
 		}
 		
 		for (int i = 1; i < colour[2].length; i++) // Horizontal check
 		{
-			boolean firstHor = colour[1][i] == colour[2][i] && colour[2][i] == colour[3][i] 
-					&& colour[3][i] == colour[4][i];
-			boolean secondHor = colour[2][i] == colour[3][i] 
-					&& colour[3][i] == colour[4][i] && colour[4][i] == colour[5][i];
-			boolean thirdHor = colour[3][i] == colour[4][i] && colour[4][i] == colour[5][i] 
-					&& colour[5][i] == colour[6][i];
-			boolean fourthHor = colour[4][i] == colour[5][i] && colour[5][i] == colour[6][i] 
-					&& colour[6][i] == colour[7][i];
-			if (firstHor || secondHor || thirdHor || fourthHor)
+			for (int j = 1; j < colour[1].length - 3; j++)
 			{
-				if (colour[4][i] == 1) 
+				boolean firstHor = colour[j][i] == colour[j + 1][i] 
+						&&colour[j + 1][i] == colour[j + 2][i] 
+						&& colour[j + 2][i] == colour[j + 3][i];
+			
+				if (firstHor)
 				{
-					winner = 1;
-				}
-				else if (colour[4][i] == 2)
-				{
-					winner = 2;
+					if (colour[4][i] == 1) 
+					{
+						winner = 1;
+					}
+					else if (colour[4][i] == 2)
+					{
+						winner = 2;
+					}
 				}
 			}
 		}
