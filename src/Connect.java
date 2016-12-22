@@ -24,6 +24,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int yCoord;
 
 	boolean[][] hover = new boolean[8][7];
+<<<<<<< HEAD
 	 int hoverColumn = 0;
 	 int placeHolder = 0;
 	boolean hoverColour;
@@ -31,6 +32,15 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	 boolean[][] used = new boolean[8][7]; // determines if tile is used
 													// or not [column][row]
 	 int[][] colour = new int[8][7]; // whose turn it is / colour of piece
+=======
+	static int hoverColumn = 0;
+	static int placeHolder = 0;
+	boolean hoverColour;
+	boolean columnSwitch;
+	static boolean[][] used = new boolean[8][7]; // determines if tile is used
+													// or not [column][row]
+	static int[][] colour = new int[8][7]; // whose turn it is / colour of piece
+>>>>>>> a66daa04b06f689ea9f561b20377f8a584ae6a1a
 											// [column][row]
 	int rowPlaced = 0;
 	int columnNum = 0;
@@ -210,6 +220,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 //		if (e.getKeyChar() == ' ') {
 //			if (MainPanel.gameState == 6)
 //				MainPanel.gameState = 7;
@@ -217,6 +228,15 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 //				MainPanel.gameState = 6;
 //			}
 //		}
+=======
+		if (e.getKeyChar() == ' ') {
+			if (MainPanel.gameState == 6)
+				MainPanel.gameState = 7;
+			else {
+				MainPanel.gameState = 6;
+			}
+		}
+>>>>>>> a66daa04b06f689ea9f561b20377f8a584ae6a1a
 	}
 
 	@Override
@@ -232,6 +252,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 		this.yCoord = e.getY();
 	}
 
+<<<<<<< HEAD
 //	public static void resetGame() {
 //
 //		// TODO Auto-generated method stub
@@ -243,5 +264,18 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 //		hoverColumn = 0;
 //		placeHolder = 0;
 //	}
+=======
+	public static void resetGame() {
+
+		// TODO Auto-generated method stub
+		for (int i = 0; i < 8; i++) // set all arrays to false and 0
+			for (int j = 0; j < 7; j++) {
+				used[i][j] = false;
+				colour[i][j] = 0;
+			}
+		hoverColumn = 0;
+		placeHolder = 0;
+	}
+>>>>>>> a66daa04b06f689ea9f561b20377f8a584ae6a1a
 
 }
