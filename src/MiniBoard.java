@@ -57,11 +57,16 @@ public class MiniBoard implements Board {
 	public boolean isValidMove(int x, int y) {
 		// TODO Auto-generated method stub
 
+		boolean returnValue = false;
 		// If the piece selected is not occupied, it is a valid move
-		if (piece[getColumn(x, y)][getRow(x, y)].getPieceID() == 0)
-			return true;
-		else
-			return false;
+		if (!SuperTicTacToe.isComputerPlayer || SuperTicTacToe.play % 2 == 0) {
+			if (piece[getColumn(x, y)][getRow(x, y)].getPieceID() == 0) {
+				returnValue = true;
+			}
+		} else if (piece[x][y].getPieceID() == 0) {
+			returnValue = true;
+		}
+		return returnValue;
 	}
 
 	@Override
@@ -89,12 +94,13 @@ public class MiniBoard implements Board {
 		// If it is a valid move: increment the play count, set the main and
 		// mini column and row values, and assign either "x" or "o" images to
 		// the piece depending on which player has made the move
+
 		if (isValidMove(x, y)) {
-			SuperTicTacToe.play++;
 			SuperTicTacToe.mainBoard.setColumn(x, y);
 			SuperTicTacToe.mainBoard.setRow(x, y);
 			setColumn(x, y);
 			setRow(x, y);
+			SuperTicTacToe.play++;
 
 			if (playerID == 1) {
 				piece[SuperTicTacToe.miniColumn][SuperTicTacToe.miniRow].setImage(SuperTicTacToe.p1.imgName);
@@ -109,7 +115,8 @@ public class MiniBoard implements Board {
 			MainBoard.miniBoard[SuperTicTacToe.miniRow][SuperTicTacToe.miniColumn].thisSquare
 					.setImage("ThisSquare.png");
 
-			// If a player has won this sub board, assign a large x or o to the bigWinner image
+			// If a player has won this sub board, assign a large x or o to the
+			// bigWinner image
 			if (getWinner() != 0) {
 				SuperTicTacToe.mainColumn = -1;
 				if (getWinner() == 1)
@@ -118,7 +125,7 @@ public class MiniBoard implements Board {
 					bigWinner.setImage("oWin.png");
 			}
 
-			// If 
+			// If
 			if (MainBoard.miniBoard[SuperTicTacToe.miniRow][SuperTicTacToe.miniColumn].getWinner() != 0) {
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
@@ -182,19 +189,28 @@ public class MiniBoard implements Board {
 	@Override
 	public void setColumn(int x, int y) {
 		// TODO Auto-generated method stub
-		
-		// Sets the sub board column to the value clicked 
-		int col = SuperTicTacToe.mainBoard.getColumn(x, y), row = SuperTicTacToe.mainBoard.getRow(x, y);
-		SuperTicTacToe.miniColumn = (x - background[col][row].x) / 67;
+
+		// Sets the sub board column to the value clicked
+		if (!SuperTicTacToe.isComputerPlayer || SuperTicTacToe.play % 2 == 0) {
+			int col = SuperTicTacToe.mainBoard.getColumn(x, y), row = SuperTicTacToe.mainBoard.getRow(x, y);
+			SuperTicTacToe.miniColumn = (x - background[col][row].x) / 67;
+		} else {
+			SuperTicTacToe.miniColumn = x;
+		}
 	}
 
 	@Override
 	public void setRow(int x, int y) {
 		// TODO Auto-generated method stub
-		
-		// Sets the sub board row to the value clicked 
-		int col = SuperTicTacToe.mainBoard.getColumn(x, y), row = SuperTicTacToe.mainBoard.getRow(x, y);
-		SuperTicTacToe.miniRow = (y - background[col][row].y) / 67;
+
+		if (!SuperTicTacToe.isComputerPlayer || SuperTicTacToe.play % 2 == 0) {
+			int col = SuperTicTacToe.mainBoard.getColumn(x, y), row = SuperTicTacToe.mainBoard.getRow(x, y);
+			SuperTicTacToe.miniRow = (y - background[col][row].y) / 67;
+			
+		} else {
+			SuperTicTacToe.miniRow = y;
+		}
+
 	}
 
 }

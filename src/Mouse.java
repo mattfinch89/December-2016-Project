@@ -30,12 +30,16 @@ public class Mouse implements MouseMotionListener, MouseListener {
 		case 2:
 			// Super Tic-Tac-Toe Menu, "One Player" and "Two Player" buttons
 			if (pointOnImage(TicTacToeMenu.onePlayer, e.getX(), e.getY())) {
-				MainPanel.gameState = 3;
+				MainPanel.gameState = 4;
+				SuperTicTacToe.isComputerPlayer = true;
+				SuperTicTacToe.setPlayer2();
 			} else if (pointOnImage(TicTacToeMenu.twoPlayer, e.getX(), e.getY())) {
 				MainPanel.gameState = 4;
+				SuperTicTacToe.setPlayer2();
 			}
 			break;
-		case 3:
+		case 3: 
+		case 4:
 			// Super Tic-Tac-Toe game
 			MainPanel.ticTacToe.mousePressed(e);
 			break;

@@ -63,7 +63,8 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 		
 		// Draw the Super Tic-Tac-Toe game and the pause menu 
 		case 5:
-		case 3:
+		case 4:
+		case 3: 
 			g.drawImage(MainBoard.background.img, MainBoard.background.x, MainBoard.background.y, null);
 
 			for (int i = 0; i < 3; i++) {
@@ -118,7 +119,7 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 		// If a Super Tic-Tac-Toe game is being run or paused, call its keyReleased method
 		switch (MainPanel.gameState) {
 		case 5:
-		case 3:
+		case 4:
 			ticTacToe.keyReleased(e);
 			break;
 
