@@ -26,18 +26,20 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 
 	// Determines which panel to run
 	static int gameState = 1;
-	
-	// Declaring and instantiating objects for the game 
+
+	// Declaring and instantiating objects for the game
 	Mouse mouse = new Mouse();
 	PauseMenu pauseMenu = new PauseMenu();
 	static SuperTicTacToe ticTacToe;
+	static Connect connect4;
 
 	MainPanel() throws IOException {
-		
+
 		// Instantiates objects that require throws IOException
-		MainMenu mainMenu = new MainMenu(); 
+		MainMenu mainMenu = new MainMenu();
 		TicTacToeMenu ticTacToeMenu = new TicTacToeMenu();
 		ticTacToe = new SuperTicTacToe();
+		connect4 = new Connect();
 	}
 
 	@Override
@@ -45,13 +47,14 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 
 		// Draw the game
 		switch (gameState) {
-		
+
 		// Draw the Main Menu
 		case 1:
 			g.drawImage(MainMenu.background.img, MainMenu.background.x, MainMenu.background.y, null);
 			g.drawImage(MainMenu.button1.img, MainMenu.button1.x, MainMenu.button1.y, null);
+			g.drawImage(MainMenu.button2.img, MainMenu.button2.x, MainMenu.button2.y, null);
 			break;
-	
+
 		// Draw the Super Tic-Tac-Toe Menu
 		case 2:
 			g.drawImage(TicTacToeMenu.background.img, TicTacToeMenu.background.x, TicTacToeMenu.background.y, null);
@@ -60,11 +63,11 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 			g.drawImage(TicTacToeMenu.twoPlayer.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			g.drawImage(TicTacToeMenu.twoPlayerText.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			break;
-		
-		// Draw the Super Tic-Tac-Toe game and the pause menu 
+
+		// Draw the Super Tic-Tac-Toe game and the pause menu
 		case 5:
 		case 4:
-		case 3: 
+		case 3:
 			g.drawImage(MainBoard.background.img, MainBoard.background.x, MainBoard.background.y, null);
 
 			for (int i = 0; i < 3; i++) {
@@ -100,12 +103,20 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 				g.drawImage(pauseMenu.background.img, pauseMenu.background.x, pauseMenu.background.y, null);
 				g.drawImage(pauseMenu.backButton.img, pauseMenu.backButton.x, pauseMenu.backButton.y, null);
 			}
+			break;
+		case 6:
+			connect4.paintComponent(g);
+			break;
 		}
+
 	}
 
 	// Run the game
 	public void run() throws InterruptedException, IOException {
-		
+		switch (gameState) {
+		case 6: 
+			connect4.run();
+		}
 	}
 
 	@Override
@@ -116,7 +127,8 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 	@Override
 	public void keyReleased(KeyEvent e) {
 
-		// If a Super Tic-Tac-Toe game is being run or paused, call its keyReleased method
+		// If a Super Tic-Tac-Toe game is being run or paused, call its
+		// keyReleased method
 		switch (MainPanel.gameState) {
 		case 5:
 		case 4:
@@ -129,7 +141,10 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		switch (gameState) {
+		case 6: 
+			connect4.mouseClicked(e);
+		}
 	}
 
 	@Override
@@ -195,7 +210,6 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 		// TODO Auto-generated method stub
 	}
 
-	
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 

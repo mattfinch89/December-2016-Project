@@ -25,6 +25,8 @@ public class Mouse implements MouseMotionListener, MouseListener {
 			// If Super Tic-Tac-Toe Button, go to Super Tic-Tac-Toe menu
 			if (pointOnImage(MainMenu.button1, e.getX(), e.getY())) {
 				MainPanel.gameState = 2;
+			} else if (pointOnImage(MainMenu.button2, e.getX(), e.getY())) {
+				MainPanel.gameState = 6;
 			}
 			break;
 		case 2:
@@ -89,7 +91,8 @@ public class Mouse implements MouseMotionListener, MouseListener {
 			TicTacToeMenu.onePlayer.hoverCheck(e.getX(), e.getY());
 			TicTacToeMenu.twoPlayer.hoverCheck(e.getX(), e.getY());
 			break;
-
+		case 6: 
+			MainPanel.connect4.mouseMoved(e);
 		}
 	}
 
