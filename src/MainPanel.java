@@ -47,6 +47,8 @@ public class MainPanel extends JPanel implements KeyListener, MouseMotionListene
 			g.drawImage(TicTacToeMenu.twoPlayer.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			g.drawImage(TicTacToeMenu.twoPlayerText.img, TicTacToeMenu.twoPlayer.x, TicTacToeMenu.twoPlayer.y, null);
 			break;
+		case 3: //the connect four state
+		break;
 		}
 	}
 
