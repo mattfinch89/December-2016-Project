@@ -57,7 +57,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	public void paintComponent(Graphics g)
 	{	
 			g.drawImage(boardImg, 0, 0, null);
-
+//			g.drawString("*Press 'Backspace' to Redo Previous Move*", 10, 15);
 			for(int i = 1; i < 8; i++)//draws all previous pieces
 			{ 
 				for(int j = 1; j < 7; j++)
@@ -82,10 +82,9 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 					placement.draw(g);
 					end = false;
 				}
-				
 			}
 				for (int i = 1; i < 7 && gameover; i++)
-				{//for loop to to place each piece in the specific column and row
+				{//for loop to place each piece in the specific column and row
 					int x = (columnNum - 1) * 100 + 5; // so it draws the current move 
 					int y = 705 - (i * 100);	
 					Piece p = new Piece(x, y, this.colour[columnNum][i], false);
@@ -180,11 +179,25 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 //				}
 //			}
 	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+//		int pressed = e.getKeyCode();
+//		boolean start = true; 
+//			if (pressed == KeyEvent.VK_BACK_SPACE && start)
+//			{
+//				round--;
+//				used[columnNum][rowPlaced] = false;
+//				colour[columnNum][rowPlaced] = 0;
+//				used[hoverColumn][rowPlaced] = false;
+//				colour[hoverColumn][rowPlaced] = 0;
+//			}
+	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -203,10 +216,8 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub

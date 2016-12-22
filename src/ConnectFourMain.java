@@ -38,7 +38,7 @@ public class ConnectFourMain{
 		{
 			cf.run();
 			cf.repaint();
-			Thread.sleep(8);
+			Thread.sleep(16);
 		}
 		
 	}
