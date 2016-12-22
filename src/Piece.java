@@ -14,14 +14,14 @@ public class Piece {
 	private int blue;
 	public Piece (int x, int y, int blue, boolean hover)
 	{
-		this.hover = hover;
-		this.blue = blue; 
-		this.x = x;
-		this.y = y;
+		this.hover = hover; //whether or not it's just the hovered piece
+		this.blue = blue; //if it is blue or red
+		this.x = x; //X coordinate
+		this.y = y; //y coordinate
 	}
 	
 	public void loadImages() throws IOException
-	{
+	{ // load the images
 		URL fileURL = getClass().getResource("redpiece.png");
 		redPiece = ImageIO.read(fileURL);
 		fileURL = getClass().getResource("bluepiece.png");
@@ -35,7 +35,7 @@ public class Piece {
 	}
 	
 	public void draw(Graphics g)
-	{
+	{ // draw the images based on whose turn
 		if (blue == 1)
 				g.drawImage(bluePiece, x, y, null);
 		else if(blue == 2)

@@ -45,12 +45,6 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 		URL fileURL = getClass().getResource("Connect4Board.png");
 		boardImg = ImageIO.read(fileURL);
 		
-		fileURL = getClass().getResource("redpiece.png");
-		redPiece = ImageIO.read(fileURL);
-
-		fileURL = getClass().getResource("bluepiece.png");
-		bluePiece = ImageIO.read(fileURL);
-		
 		for (int i = 0; i < 8; i++) // set all arrays to false and 0
 			for(int j = 0; j < 7; j++)
 			{
@@ -61,32 +55,25 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	
 	@Override
 	public void paintComponent(Graphics g)
-	{
-			if (gameover)
-			{
-				g.drawImage(boardImg, 0, 0, null);
-			}
-			else if (!gameover)
-			{
-				g.drawImage(boardImg, 0, 0, null);
-			}
+	{	
+			g.drawImage(boardImg, 0, 0, null);
 
-			for(int i = 1; i < 8; i++)
-			{
+			for(int i = 1; i < 8; i++)//draws all previous pieces
+			{ 
 				for(int j = 1; j < 7; j++)
 				{
 					if (used[i][j])
 					{
-						int x = (i - 1) * 100 + 5;
+						int x = (i - 1) * 100 + 5; //placed perfectly in tiles with that equations
 						int y = 705 - (j * 100);
 						Piece previous = new Piece(x, y, this.colour[i][j], false);
-						previous.draw(g); //draws all previous pieces
+						previous.draw(g); 
 					}
 				}
 			}
 			boolean end = true;
 			for (int i = 1; i < 7 && end && gameover; i++)
-			{
+			{ //hover "for" loop to draw the transparent piece
 				int x = (hoverColumn - 1) * 100 + 5;
 				int y = 705 - (i * 100);
 				Piece placement = new Piece(x, y, colour[hoverColumn][i], hoverColour);
@@ -98,8 +85,8 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				
 			}
 				for (int i = 1; i < 7 && gameover; i++)
-				{
-					int x = (columnNum - 1) * 100 + 5;
+				{//for loop to to place each piece in the specific column and row
+					int x = (columnNum - 1) * 100 + 5; // so it draws the current move 
 					int y = 705 - (i * 100);	
 					Piece p = new Piece(x, y, this.colour[columnNum][i], false);
 					try 
@@ -121,7 +108,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				
 				if (gameover) // changes the colour of the tile/switches turns
 				{
-					if (round % 2 == 0)//true = player 1 turn
+					if (round % 2 == 0)//player 1 turn - red
 					{
 						colour[columnNum][rowPlaced] = 1;
 						hoverColour = true;
@@ -129,10 +116,10 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 					else
 					{
 						hoverColour = false; 
-						colour[columnNum][rowPlaced] = 2; // false = player 2 turn
+						colour[columnNum][rowPlaced] = 2; //player 2 turn - blue
 					}
 					
-					if (round == 42)
+					if (round == 42) //if the gameboard is full - gameover
 						gameover = false;
 		}
 	}
@@ -140,12 +127,11 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-			cp.turn(xCoord);	
+			cp.turn(xCoord);	//refer to ConnectPlayer Class
 			columnNum = cp.columnNum; //refer to ConnectPlayer class
-					
-			boolean end = true;
+			boolean end = true; // just a placeholder to ensure the for loop stops when it hits the first empty spot
 			for (int i = 1; i < 7 && end && gameover;i++)
-			{
+			{ 
 				if (!used[columnNum][i] && yCoord > 100) //will check for the first row without a piece
 				{	
 					round++; 
@@ -170,9 +156,9 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 		}
 		
 		for (int i = 0; i < 7; i++)
-		{
-			int x = xCoord / 100;
-			if (x == i)
+		{ //transparent piece hover function
+			int x = xCoord / 100; //turns the x coordinate into the column number
+			if (x == i) // finds the column it's in 
 			{
 				hoverColumn = i + 1; 
 			}
@@ -220,7 +206,6 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	}	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {

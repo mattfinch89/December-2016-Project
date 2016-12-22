@@ -73,33 +73,39 @@ public class ConnectPlayer {
 				boolean diagonal = colour[i][j] == colour[i + 1][j + 1] 
 						&& colour[i + 1][j + 1] == colour[i + 2][j + 2]
 						&& colour[i + 2][j + 2] == colour[i + 3][j + 3]; 
-				if (colour[i][j] == 1 && diagonal)
+				if (diagonal)
 				{
-					winner = 1;
+					if (colour[i][j] == 1)
+					{
+						winner = 1;
+					}
+					else if (colour[i][j] == 2)
+					{
+						winner = 2;
+					}
 				}
-				else if (colour[i][j] == 2 && diagonal)
-				{
-					winner = 2;
-				}
-				
 			}
 		
 		for (int i = 7; i > 3; i--) // diagonal up to the left 
+		{
 			for (int j = 1; j < 4; j++)
 			{
 				boolean diagonal = colour[i][j] == colour[i - 1][j + 1] 
 						&& colour[i - 1][j + 1] == colour[i - 2][j + 2]
 						&& colour[i - 2][j + 2] == colour[i - 3][j + 3]; 
-				if (colour[i][j] == 1 && diagonal)
+				if (diagonal)
 				{
-					winner = 1;
+					if (colour[i][j] == 1)
+					{
+						winner = 1;
+					}
+					else if (colour[i][j] == 2)
+					{
+						winner = 2;
+					}
 				}
-				else if (colour[i][j] == 2 && diagonal)
-				{
-					winner = 2;
-				}
-				
 			}
+		}
 	}
 }
 
