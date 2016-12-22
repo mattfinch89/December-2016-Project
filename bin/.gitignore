@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Board.class
 <<<<<<< HEAD
 /Grid.class
@@ -42,3 +43,15 @@
 /Computer.class
 /transred.png
 /transpiece.png
+=======
+/ConnectFourMain.class
+/ConnectPlayer.class
+/Connect.class
+/Connect4Board.png
+/bluepiece.png
+/redpiece.png
+/transpiece.png
+/transred.png
+/Connect4_Piece.class
+/Connect4Menu.class
+>>>>>>> 766e0944c3e4454cdc6094aee49b30f4ca3e7cf9

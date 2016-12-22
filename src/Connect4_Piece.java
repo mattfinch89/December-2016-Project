@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -6,14 +5,14 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-public class Piece {
+public class Connect4_Piece {
 	
 	private int x, y;
 //	private static int round;
 	private static BufferedImage redPiece, bluePiece, transRed, transBlue;
 	boolean hover;
 	private int blue;
-	public Piece (int x, int y, int blue, boolean hover)
+	public Connect4_Piece (int x, int y, int blue, boolean hover)
 	{
 		this.hover = hover; //whether or not it's just the hovered piece
 		this.blue = blue; //if it is blue or red
@@ -66,37 +65,3 @@ public class Piece {
 //		
 }
  
-=======
-import java.io.IOException;
-
-public class Piece extends Image {
-
-	// Declare and initialize the piece ID to 0
-	private byte pieceID = 0;
-	
-	// Call the super constructor 
-	Piece(String n, int imageX, int imageY) throws IOException {
-		super(n, imageX, imageY);
-		// TODO Auto-generated constructor stub
-	}
-
-	// Assign a value to piece ID
-	public void setPieceID(int i) throws IOException {
-		this.pieceID = (byte) i;
-	}
-	
-	// Reset the piece by setting the image to a blank image, and the piece ID to 0
-	public void resetPiece() throws IOException {
-		setImage("-.png");
-		this.pieceID = 0;
-	}
-
-	// Return the piece ID 
-	public int getPieceID() {
-		// TODO Auto-generated method stub
-		return this.pieceID;
-	}
-	
-	
-}
->>>>>>> 766e0944c3e4454cdc6094aee49b30f4ca3e7cf9
