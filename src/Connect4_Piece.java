@@ -5,14 +5,14 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-public class Piece {
+public class Connect4_Piece {
 	
 	private int x, y;
 //	private static int round;
 	private static BufferedImage redPiece, bluePiece, transRed, transBlue;
 	boolean hover;
 	private int blue;
-	public Piece (int x, int y, int blue, boolean hover)
+	public Connect4_Piece (int x, int y, int blue, boolean hover)
 	{
 		this.hover = hover; //whether or not it's just the hovered piece
 		this.blue = blue; //if it is blue or red
@@ -48,6 +48,6 @@ public class Piece {
 			else 
 				g.drawImage(transBlue, x, y, null);
 		}
-	}
+	}	
 }
  
