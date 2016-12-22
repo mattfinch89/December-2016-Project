@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -83,7 +83,7 @@ public class Piece extends Image {
 	// Assign a value to piece ID
 	public void setPieceID(int i) throws IOException {
 		this.pieceID = (byte) i;
-	}
+	}      
 	
 	// Reset the piece by setting the image to a blank image, and the piece ID to 0
 	public void resetPiece() throws IOException {
@@ -99,4 +99,3 @@ public class Piece extends Image {
 	
 	
 }
->>>>>>> 766e0944c3e4454cdc6094aee49b30f4ca3e7cf9
