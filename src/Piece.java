@@ -49,19 +49,5 @@ public class Piece {
 				g.drawImage(transBlue, x, y, null);
 		}
 	}
-	
-//	public static int rounds()
-//	{
-//		System.out.println(round);
-//		return round;
-//	}
-
-//	public boolean colour(){
-//		if (round % 2 == 0)
-//			return blue;
-//		else
-//			return !blue;
-//	}
-//		
 }
  

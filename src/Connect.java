@@ -17,11 +17,7 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	int width;
 	int height;
 	boolean gameover = true; 
-//	boolean twoPlayer = false; 
-//	boolean computerTurn; 
-//	boolean computerMove; 
-	int columnHover = 0; 
-//	int currentX;
+	int columnHover = 0;
 	int xCoord;
 	int yCoord; 
 	
@@ -38,12 +34,15 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	
 	ConnectPlayer cp = new ConnectPlayer();
 //	Computer ai = new Computer();
-	BufferedImage boardImg, redPiece, bluePiece; 
+	BufferedImage boardImg, redPiece, bluePiece, gameoverScreen; 
 	
 	public Connect() throws IOException
 	{
 		URL fileURL = getClass().getResource("Connect4Board.png");
 		boardImg = ImageIO.read(fileURL);
+		
+		fileURL = getClass().getResource("gameover.png");
+		gameoverScreen = ImageIO.read(fileURL);
 		
 		for (int i = 0; i < 8; i++) // set all arrays to false and 0
 			for(int j = 0; j < 7; j++)
@@ -57,7 +56,8 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 	public void paintComponent(Graphics g)
 	{	
 			g.drawImage(boardImg, 0, 0, null);
-//			g.drawString("*Press 'Backspace' to Redo Previous Move*", 10, 15);
+			g.drawString("*Press 'Backspace' to Redo Previous Move*", 10, 15);
+			
 			for(int i = 1; i < 8; i++)//draws all previous pieces
 			{ 
 				for(int j = 1; j < 7; j++)
@@ -120,7 +120,11 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 					
 					if (round == 42) //if the gameboard is full - gameover
 						gameover = false;
-		}
+				}
+				if (!gameover)
+				{
+					g.drawImage(gameoverScreen, 0, 0, null);
+				}
 	}
 	
 	@Override
@@ -162,36 +166,10 @@ public class Connect extends JPanel implements MouseListener, KeyListener, Mouse
 				hoverColumn = i + 1; 
 			}
 		}
-
-		
-//			if (gameover)
-//			{
-//				boolean end = true; 
-//				for (int i = 1; i < 7 && end;i++)
-//				{
-//					columnHover = (this.currentX / 100) + 1;
-//					if (!used[columnHover][i])
-//					{	
-//						System.out.println(columnHover);
-//						used[columnHover][i] = true; 
-//						end = false;
-//					}
-//				}
-//			}
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-//		int pressed = e.getKeyCode();
-//		boolean start = true; 
-//			if (pressed == KeyEvent.VK_BACK_SPACE && start)
-//			{
-//				round--;
-//				used[columnNum][rowPlaced] = false;
-//				colour[columnNum][rowPlaced] = 0;
-//				used[hoverColumn][rowPlaced] = false;
-//				colour[hoverColumn][rowPlaced] = 0;
-//			}
 	}
 	
 	@Override
