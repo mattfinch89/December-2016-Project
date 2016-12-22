@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -99,4 +99,4 @@ public class Piece extends Image {
 	
 	
 }
->>>>>>> 766e0944c3e4454cdc6094aee49b30f4ca3e7cf9
+
